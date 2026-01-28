@@ -18,34 +18,12 @@ jobs:
       with:
         python-version: '3.9'
 
-    - name: Run tests
-      run: |
-        python -m pytest test_add.py -v
-      # اگر pytest ندارید، ابتدا install کنید یا از تست ساده استفاده کنید:
-      # run: python test_add.py
-      
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pytest
+    - name: Install pytest
+      run: pip install pytest
 
-    - name: Run tests
+    - name: Run simple test
       run: |
-        python -m pytest test_add.py -v
-
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    needs: test
-    if: github.ref == 'refs/heads/main'
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
-
-    - name: Run program
-      run: |
-        python add.py 5 10
+        # اول تست می‌کنیم فایل‌ها وجود دارند
+        ls -la
+        echo "Running test..."
+        python test_add.py
